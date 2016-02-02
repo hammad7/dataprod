@@ -4,7 +4,7 @@ shinyUI(
     sidebarPanel(
       fileInput('file','Upload a JPEG Image',accept = 'image/jpeg'),
       h5('OR'),
-      selectInput("imagename", "Select an image:", list.files(path="./Data",pattern="\\.jpg")),#,selected='./Data/Flower.jpg'),
+      selectInput("imagename", "Select an image:", list.files(path="./Data",pattern="\\.jpg"),selected='Flower.jpg'),
       #'JPG$'
       uiOutput('dynamicslider'),#####
       h4('Variance retained'),
