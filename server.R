@@ -5,35 +5,44 @@ descale <- function(mat,att){
   t(t(mat)*att$'scaled:scale'+att$'scaled:center')
 }
 
-calc<- function(){
-  myO <<- readJPEG(inputi)
-  z.r <<- scale(myO[,,1])
-  z.g <<- scale(myO[,,2])
-  z.b <<- scale(myO[,,3])
-  svd1.r <<- svd(z.r)
-  svd1.g <<- svd(z.g)
-  svd1.b <<- svd(z.b)
-}
+#inputi <<- "./Data/Flower.jpg"
 
+# calc<- function(){
+#   myO <<- readJPEG(val$inputi)
+#   z.r <<- scale(myO[,,1])
+#   z.g <<- scale(myO[,,2])
+#   z.b <<- scale(myO[,,3])
+#   svd1.r <<- svd(z.r)
+#   svd1.g <<- svd(z.g)
+#   svd1.b <<- svd(z.b)
+# }
 
 shinyServer(
   function(input,output,session){
   
+    val <- reactiveValues()
+    
     obsf <- observe({   
       if (is.null(input$file))
         return()
-      inputi <<- input$file$datapath
+      val$inputi <- input$file$datapath
     })
     
     obsi <- observe({   
-      inputi <<-paste("./Data/",input$imagename,sep = '')
-      print(file.info(inputi))
+      val$inputi <- paste("./Data/",input$imagename,sep = '')
     })
 
     x <- reactive({
-      input$file
-      input$imagename
-      calc()
+  #    input$file
+  #    input$imagename
+  #    calc()
+      myO <<- readJPEG(val$inputi)
+      z.r <<- scale(myO[,,1])
+      z.g <<- scale(myO[,,2])
+      z.b <<- scale(myO[,,3])
+      svd1.r <<- svd(z.r)
+      svd1.g <<- svd(z.g)
+      svd1.b <<- svd(z.b)
     })
     
     output$dynamicslider <- renderUI({
