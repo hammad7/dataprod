@@ -33,6 +33,7 @@ shinyServer(
     })
 
     x <- reactive({
+  #
   #    input$file
   #    input$imagename
   #    calc()
